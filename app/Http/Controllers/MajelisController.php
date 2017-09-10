@@ -12,6 +12,7 @@ use App\BidangLomba;
 use App\Peserta;
 use App\PesertaPendaftaran;
 use Validator;
+use App\MajelisPeserta;
 
 class MajelisController extends Controller
 {
@@ -24,6 +25,10 @@ class MajelisController extends Controller
     {
         $majelis_list = Majelis::get();
         $jumlah_majelis = Majelis::count();
+
+        foreach ($majelis_list as $row) {
+            $row->jumlah_peserta = MajelisPeserta::where('majelis_id', $row->id_majelis)->count();
+        }
 
         //dd($majelis_list[0]->dewan_hakim_1_majelis);
         

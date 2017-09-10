@@ -60,4 +60,8 @@ class Majelis extends Model
   	  public function panitera_2_majelis(){
       	return $this->belongsTo('App\PesertaPendaftaran','panitera_2');
   	  }
+
+      public function majelis_peserta(){
+        return $this->hasMany('App\MajelisPeserta','majelis_id','id_majelis');
+  }
 }

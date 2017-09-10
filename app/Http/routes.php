@@ -28,6 +28,8 @@ Route::group(array('prefix' => 'operator_registrasi','middleware' => ['operator_
 	Route::post('/verifikasi_peserta', 'OperatorRegistrasiController@verifikasi_peserta');
 	Route::post('/verifikasi_peserta_valid', 'OperatorRegistrasiController@verifikasi_peserta_valid');
 
+  Route::get('/verifikasi_result', 'OperatorRegistrasiController@verifikasi_result');
+
 
 	//cetak kartu
 	Route::post('/cetak_kartu', 'OperatorRegistrasiController@cetak_kartu');

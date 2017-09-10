@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="{!! asset('css/app.css') !!}" />
     <link rel="stylesheet" href="{!! asset('camera/css/styles.css') !!}">
     <link rel="manifest" href="{!! asset('manifest.json') !!}">
-    <link rel="stylesheet" href="https://unpkg.com/sweetalert@2.0.3/src/sweetalert.css">
+    
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.10/sweetalert2.min.css">
     
     @yield('css')
 
@@ -37,7 +39,9 @@
             <!-- Footer -->
             @include('layouts.footer')
 
-            @include('sweet::alert')
+            
+
+            
 
         </div>
         <!-- End page wrapper-->
@@ -46,7 +50,11 @@
     <!-- End wrapper-->
 
 <script src="{!! asset('js/app.js') !!}" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.10/sweetalert2.min.js"></script>
 
+
+<!-- Include a polyfill for ES6 Promises (optional) for IE11 and Android browser -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
 
 <script>
 // Register Service Worker.
@@ -62,6 +70,20 @@ if ('serviceWorker' in navigator) {
     });
 }
 </script>
+
+@if (notify()->ready())
+    <script>
+        swal({
+            title: "{!! notify()->message() !!}",
+            text: "{!! notify()->option('text') !!}",
+            type: "{{ notify()->type() }}",
+            @if (notify()->option('timer'))
+                timer: {{ notify()->option('timer') }},
+                showConfirmButton: false
+            @endif
+        });
+    </script>
+@endif
 
 
 @yield('script')

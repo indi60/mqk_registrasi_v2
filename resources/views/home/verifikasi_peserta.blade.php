@@ -4,6 +4,8 @@
 
 <style>
 
+
+
 #sticky {
     padding: 0.5ex;
     
@@ -95,7 +97,12 @@ border-radius: 0!important;
 }
 
 
-
+.sweet-alert { 
+   top:5%;
+    left:30%;
+    outline: none;
+    overflow:hidden;
+}
   
 
 </style>
@@ -111,9 +118,10 @@ border-radius: 0!important;
                                 
 
         <div class="ibox-content" style="text-align: left;">
-        <form class="" action="{{url('operator_registrasi/verifikasi_peserta_valid')}}" method="post">
+        <form id="form-verifikasi" class="form-verifikasi" action="{{url('operator_registrasi/verifikasi_peserta_valid')}}" method="post">
           {{ csrf_field() }}
         <input type="hidden" name="no_registrasi" value="{{$peserta->no_registrasi}}">
+        <input type="hidden" name="btn" id="btn">
                           
           <h2>Persyaratan Registrasi</h2>
           <strong>Cek dokumen fisik.</strong>
@@ -286,12 +294,14 @@ border-radius: 0!important;
         
 
         <script type="text/javascript">
+        /*
           $("input[type='checkbox'].i-checks").change(function(){
             var a = $("input[type='checkbox'].i-checks");
             if(a.length == a.filter(":checked").length){
                 alert('Data Peserta Lengkap!');
             }
         });
+        */
         </script>
 
 
@@ -529,6 +539,132 @@ function showUpload() {
 
 
      });
+</script>
+
+<script type="text/javascript">
+
+@if($peserta->jenis_peserta == 'peserta')
+
+$(document).on('click', '#btnTolak', function(e) {
+    $("#btn").val("invalid");
+    e.preventDefault();
+    swal({
+        title: 'Konfirmasi',
+        input: 'checkbox',
+        inputValue: 0,
+        inputPlaceholder: ' Dengan ini saya menyatakan bahwa Peserta dengan Nama <br> {{ $peserta->nama_lengkap }} ({{$peserta->no_registrasi}}) dari Kafilah {{ $peserta->kafilah->nama_kafilah }} <br>TIDAK MEMENUHI SYARAT VERIFIKASI<br> (Bidang Lomba <strong>{{$peserta->bidang_lomba_peserta->bidang_lomba}}</strong> Marhalah {{$peserta->marhalah_peserta->marhalah}})',
+        confirmButtonText: 'Tolak Verifikasi Peserta',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        customClass: 'sweet-alert',
+        inputValidator: function (result) {
+            return new Promise(function (resolve, reject) {
+                if (result) {
+                    resolve();
+                } else {
+                    reject('Anda harus mencentang persetujuan.');
+                }
+            })
+        }
+    }).then(function (result) {
+        //$('#form-verifikasi').submit();
+        document.getElementById("form-verifikasi").submit();
+    });
+});
+
+$(document).on('click', '#btnTerima', function(e) {
+    $("#btn").val("valid");
+    e.preventDefault();
+    
+    swal({
+        title: 'Konfirmasi',
+        input: 'checkbox',
+        inputValue: 0,
+        inputPlaceholder: ' Dengan ini saya menyatakan bahwa Peserta dengan Nama <br> {{ $peserta->nama_lengkap }} ({{$peserta->no_registrasi}}) dari Kafilah {{ $peserta->kafilah->nama_kafilah }} <br> MEMENUHI SYARAT VERIFIKASI.<br> (Bidang Lomba <strong>{{$peserta->bidang_lomba_peserta->bidang_lomba}}</strong> Marhalah {{$peserta->marhalah_peserta->marhalah}})',
+        confirmButtonText: 'Verifikasi Peserta',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        customClass: 'sweet-alert',
+        inputValidator: function (result) {
+            return new Promise(function (resolve, reject) {
+                if (result) {
+                    resolve();
+                } else {
+                    reject('Anda harus mencentang persetujuan.');
+                }
+            })
+        }
+    }).then(function (result) {
+        //$('#form-verifikasi').submit();
+        document.getElementById("form-verifikasi").submit();
+    });
+});
+
+@else
+
+
+$(document).on('click', '#btnTolak', function(e) {
+  $("#btn").val("invalid");
+    e.preventDefault();
+    swal({
+        title: 'Konfirmasi',
+        input: 'checkbox',
+        inputValue: 0,
+        inputPlaceholder: ' Dengan ini saya menyatakan bahwa Nama <br> {{ $peserta->nama_lengkap }} ({{$peserta->no_registrasi}}) <br> TIDAK MEMENUHI SYARAT VERIFIKASI.',
+        confirmButtonText: 'Verifikasi Peserta',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        customClass: 'sweet-alert',
+        inputValidator: function (result) {
+            return new Promise(function (resolve, reject) {
+                if (result) {
+                    resolve();
+                } else {
+                    reject('Anda harus mencentang persetujuan.');
+                }
+            })
+        }
+    }).then(function (result) {
+        //$('#form-verifikasi').submit();
+        document.getElementById("form-verifikasi").submit();
+    });
+});
+
+$(document).on('click', '#btnTerima', function(e) {
+    $("#btn").val("valid");
+    e.preventDefault();
+    swal({
+        title: 'Konfirmasi',
+        input: 'checkbox',
+        inputValue: 0,
+        inputPlaceholder: ' Dengan ini saya menyatakan bahwa Nama <br> {{ $peserta->nama_lengkap }} ({{$peserta->no_registrasi}}) <br> MEMENUHI SYARAT VERIFIKASI.',
+        confirmButtonText: 'Verifikasi Peserta',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        customClass: 'sweet-alert',
+        inputValidator: function (result) {
+            return new Promise(function (resolve, reject) {
+                if (result) {
+                    resolve();
+                } else {
+                    reject('Anda harus mencentang persetujuan.');
+                }
+            })
+        }
+    }).then(function (result) {
+        //$('#form-verifikasi').submit();
+        document.getElementById("form-verifikasi").submit();
+    });
+});
+
+@endif
+
+
+
 </script>
 
 

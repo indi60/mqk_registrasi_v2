@@ -1,7 +1,5 @@
 var elixir = require('laravel-elixir');
 
-require('laravel-elixir-vue-2');
-
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -15,6 +13,4 @@ require('laravel-elixir-vue-2');
 
 elixir(function(mix) {
     mix.sass('app.scss');
-
-    mix.copy('node_modules/sweetalert/dist/','public/sweetalert/');
 });

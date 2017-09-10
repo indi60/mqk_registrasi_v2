@@ -104,5 +104,9 @@ class Peserta extends Model
         return $this->hasMany('App\Majelis','panitera_2','id_peserta');
   }
 
+  public function majelis_peserta(){
+        return $this->hasMany('App\MajelisPeserta','no_peserta','no_peserta');
+  }
+
 
 }

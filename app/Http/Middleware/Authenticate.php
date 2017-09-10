@@ -40,6 +40,10 @@ class Authenticate
 
             if ($user && $user->isOperatorRegistrasi())
             {
+                notify()->flash('Welcome back!', 'success', [
+                    'timer' => 2000,
+                    'text' => 'It\'s really great to see you again',
+                ]);
                 return redirect('/operator_registrasi');
             }
 

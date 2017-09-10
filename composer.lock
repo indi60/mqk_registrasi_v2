@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "34ccbd07da6ec4ac976600d0f90e7d1c",
+    "content-hash": "7b16431ce3d6af4873af105e8fcaa1d2",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -115,6 +115,46 @@
                 "preload"
             ],
             "time": "2016-09-16T12:50:15+00:00"
+        },
+        {
+            "name": "codecourse/notify",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/codecourse/notify.git",
+                "reference": "1abffc3d9a6d8ef79d9f2c0af0a1bcadc86bf4c1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/codecourse/notify/zipball/1abffc3d9a6d8ef79d9f2c0af0a1bcadc86bf4c1",
+                "reference": "1abffc3d9a6d8ef79d9f2c0af0a1bcadc86bf4c1",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Codecourse\\Notify\\": "src/"
+                },
+                "files": [
+                    "src/Codecourse/Notify/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Garrett",
+                    "email": "alex@codecourse.com"
+                }
+            ],
+            "description": "Flexible flash notifications for Laravel",
+            "time": "2015-12-01T09:20:03+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2269,57 +2309,6 @@
             "time": "2016-07-26T08:03:56+00:00"
         },
         {
-            "name": "uxweb/sweet-alert",
-            "version": "1.4.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/uxweb/sweet-alert.git",
-                "reference": "d32915471455061d6257448cbb8de16ecc521331"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/uxweb/sweet-alert/zipball/d32915471455061d6257448cbb8de16ecc521331",
-                "reference": "d32915471455061d6257448cbb8de16ecc521331",
-                "shasum": ""
-            },
-            "require": {
-                "illuminate/session": "~5.0",
-                "illuminate/support": "~5.0",
-                "php": ">=5.4.0"
-            },
-            "require-dev": {
-                "mockery/mockery": "^0.9.5",
-                "phpunit/phpunit": "^5.5"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "UxWeb\\SweetAlert\\": "src/SweetAlert/"
-                },
-                "files": [
-                    "src/SweetAlert/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Uziel Bueno",
-                    "email": "ux.webs@gmail.com"
-                }
-            ],
-            "description": "A simple PHP package to show Sweet Alerts with the Laravel Framework",
-            "keywords": [
-                "alert",
-                "laravel",
-                "notifier",
-                "sweet"
-            ],
-            "time": "2017-03-27T03:54:49+00:00"
-        },
-        {
             "name": "vlucas/phpdotenv",
             "version": "v2.4.0",
             "source": {
@@ -3705,6 +3694,57 @@
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
             "time": "2017-07-29T21:54:42+00:00"
+        },
+        {
+            "name": "uxweb/sweet-alert",
+            "version": "1.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/uxweb/sweet-alert.git",
+                "reference": "d32915471455061d6257448cbb8de16ecc521331"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/uxweb/sweet-alert/zipball/d32915471455061d6257448cbb8de16ecc521331",
+                "reference": "d32915471455061d6257448cbb8de16ecc521331",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/session": "~5.0",
+                "illuminate/support": "~5.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.5",
+                "phpunit/phpunit": "^5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "UxWeb\\SweetAlert\\": "src/SweetAlert/"
+                },
+                "files": [
+                    "src/SweetAlert/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Uziel Bueno",
+                    "email": "ux.webs@gmail.com"
+                }
+            ],
+            "description": "A simple PHP package to show Sweet Alerts with the Laravel Framework",
+            "keywords": [
+                "alert",
+                "laravel",
+                "notifier",
+                "sweet"
+            ],
+            "time": "2017-03-27T03:54:49+00:00"
         },
         {
             "name": "webmozart/assert",

@@ -171,6 +171,9 @@ return [
         //sweet alert
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 
+        //notify
+        Codecourse\Notify\NotifyServiceProvider::class,
+
         
 
     ],
@@ -235,6 +238,9 @@ return [
 
         //sweetallert
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+
+        //notify
+        'Notify' => Codecourse\Notify\Facades\Notify::class,
         
         
 

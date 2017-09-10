@@ -115,7 +115,7 @@
                                 <td width="200px" style="text-align: center;">
                                   <a class="btn btn-xs btn-success" href="{{ URL::to('operator_registrasi/majelis/'.$row->id_majelis.'/edit') }}"><i class="fa fa-edit fa-fw"></i> Edit</a>
                                   &nbsp;&nbsp;
-                                  <a class="btn btn-xs btn-success" href="{{ URL::to('operator_registrasi/majelis/'.$row->id_majelis.'/edit') }}"><i class="fa fa-eye fa-fw"></i>Peserta</a>
+                                  <a class="btn btn-xs btn-success" href="{{ URL::to('operator_registrasi/majelis/'.$row->id_majelis.'/edit') }}"><i class="fa fa-eye fa-fw"></i> ({{$row->jumlah_peserta}}) Peserta</a>
                                   <!--
                                   <a class="btn btn-xs btn-danger" href="{{ URL::to('operator_registrasi/majelis/delete/'.$row->id_majelis) }}" data-token="{!! csrf_token() !!} " data-method="delete" data-confirm="Anda yakin menghapus Data Majelis?"><i class="fa fa-remove fa-fw"></i> Hapus</a>
                                   -->
