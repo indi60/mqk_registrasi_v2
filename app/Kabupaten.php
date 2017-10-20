@@ -15,9 +15,7 @@ class Kabupaten extends Model
     'provinsi_id',
 
   ];
-  protected $guarded = [
-      'id_kabupaten'
-  ];
+  
 
     public function provinsi(){
         return $this->belongsTo('App\Provinsi','provinsi_id');

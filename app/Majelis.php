@@ -12,6 +12,8 @@ class Majelis extends Model
 	  protected $fillable=
 	  [
 	    'id_majelis',
+      'tanggal',
+      'hari',
 	    'bidang_lomba_id',
 	    'babak_id',
 	    'marhalah_id',
@@ -25,9 +27,7 @@ class Majelis extends Model
 
 
 	  ];
-	  protected $guarded = [
-	      'id_majelis'
-	  ];
+	  
 
 	  public function babak(){
       	return $this->belongsTo('App\Babak','babak_id');
@@ -42,23 +42,23 @@ class Majelis extends Model
   	  }
 
   	  public function dewan_hakim_1_majelis(){
-      	return $this->belongsTo('App\PesertaPendaftaran','dewan_hakim_1');
+      	return $this->belongsTo('App\Peserta','dewan_hakim_1');
   	  }
 
   	  public function dewan_hakim_2_majelis(){
-      	return $this->belongsTo('App\PesertaPendaftaran','dewan_hakim_2');
+      	return $this->belongsTo('App\Peserta','dewan_hakim_2');
   	  }
 
   	  public function dewan_hakim_3_majelis(){
-      	return $this->belongsTo('App\PesertaPendaftaran','dewan_hakim_3');
+      	return $this->belongsTo('App\Peserta','dewan_hakim_3');
   	  }
 
   	  public function panitera_1_majelis(){
-      	return $this->belongsTo('App\PesertaPendaftaran','panitera_1');
+      	return $this->belongsTo('App\Peserta','panitera_1');
   	  }
 
   	  public function panitera_2_majelis(){
-      	return $this->belongsTo('App\PesertaPendaftaran','panitera_2');
+      	return $this->belongsTo('App\Peserta','panitera_2');
   	  }
 
       public function majelis_peserta(){

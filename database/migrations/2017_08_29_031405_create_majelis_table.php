@@ -18,7 +18,7 @@ class CreateMajelisTable extends Migration
             $table->integer('bidang_lomba_id');
             $table->integer('babak_id');
             $table->integer('marhalah_id');
-            $table->enum('pria_wanita', ['pria', 'wanita']);
+            //$table->enum('pria_wanita', ['pria', 'wanita']);
             $table->integer('dewan_hakim_1');
             $table->integer('dewan_hakim_2');
             $table->integer('dewan_hakim_3');

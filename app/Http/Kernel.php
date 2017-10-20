@@ -53,5 +53,6 @@ class Kernel extends HttpKernel
         'kafilah' => 'App\Http\Middleware\IsKafilah',
         'operator_registrasi' => 'App\Http\Middleware\IsOperatorRegistrasi',
         'panitera' => 'App\Http\Middleware\IsPanitera',
+        'panitera_kitab' => 'App\Http\Middleware\IsPaniteraKitab',
     ];
 }

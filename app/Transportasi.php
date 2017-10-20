@@ -22,9 +22,7 @@ class Transportasi extends Model
 
 
     ];
-    protected $guarded = [
-        'id_transportasi'
-    ];
+   
 
     public function kafilah(){
         return $this->belongsTo('App\Kafilah','kafilah_id');

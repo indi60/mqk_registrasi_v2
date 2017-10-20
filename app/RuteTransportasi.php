@@ -15,9 +15,7 @@ class RuteTransportasi extends Model
 
 
   ];
-  protected $guarded = [
-      'id_rute_transportasi'
-  ];
+  
 
 
     public function transportasi(){

@@ -234,11 +234,11 @@ class OperatorRegistrasiController extends Controller
 	  	//dd($peserta_valid);
 	  	if($peserta_valid['jenis_peserta'] == 'peserta'){
 	  		$input_peserta_majelis = array();
-	  		$input_peserta_majelis['majelis_id'] = Majelis::where('bidang_lomba_id', $peserta_valid['bidang_lomba_id'])->where('marhalah_id',$peserta_valid['marhalah_id'])->value('id_majelis');
+	  		$input_peserta_majelis['majelis_id'] = Majelis::where('bidang_lomba_id', $peserta_valid['bidang_lomba_id'])->where('marhalah_id',$peserta_valid['marhalah_id'])->where('babak_id',1)->value('id_majelis');
 	  		$input_peserta_majelis['no_peserta'] = $peserta_valid['no_peserta'];
 
 	  		if(MajelisPeserta::where('majelis_id', $input_peserta_majelis['majelis_id'])->where('no_peserta',$input_peserta_majelis['no_peserta'])->count() == 0){
-	  			
+
 	  			$peserta_majelis = MajelisPeserta::create($input_peserta_majelis);	
 	  		}
 

@@ -50,6 +50,10 @@ class User extends Authenticatable
         return $this->role == 'panitera';   
     }
 
+    public function isPaniteraKitab(){
+        return $this->role == 'panitera_kitab';   
+    }
+
     public function getNamaProvinsi(){
       return Provinsi::findOrFail($this->spesifik_akses);
     }

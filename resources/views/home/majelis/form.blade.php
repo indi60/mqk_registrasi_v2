@@ -47,7 +47,7 @@
       @endif
     </div>
 
-    @if ($errors->any())
+    <!-- @if ($errors->any())
       <div class="form-group {{ $errors->has('pria_wanita') ? 'has-error' : 'has-success' }}">
     @else
       <div class="form-group">
@@ -59,7 +59,42 @@
       @if ($errors->has('pria_wanita'))
           <span class="help-block">{{ $errors->first('pria_wanita') }}</span>
       @endif
+    </div> -->
+
+    @if ($errors->any())
+      <div class="form-group {{ $errors->has('tanggal') ? 'has-error' : 'has-success' }}">
+    @else
+      <div class="form-group">
+    @endif
+      <label class="col-sm-4 control-label">Tanggal Perjalanan</label>
+      <div class="col-sm-8">
+        <div class="input-group date">
+          <div class="input-group-addon">
+            <i class="fa fa-calendar"></i>
+          </div>
+      {!! Form::text('tanggal', null, array('id' => 'tanggal', 'class' => 'tanggal form-control')) !!}
+        </div>
+      </div>
+      @if ($errors->has('tanggal'))
+          <span class="help-block">{{ $errors->first('tanggal') }}</span>
+      @endif
     </div>
+
+
+      @if ($errors->any())
+        <div class="form-group {{ $errors->has('hari') ? 'has-error' : 'has-success' }}">
+      @else
+        <div class="form-group">
+      @endif
+        <label class="col-sm-4 control-label">Hari</label>
+        <div class="col-sm-8">
+        {!! Form::text('hari', null, ['class' => 'form-control', 'id'=>'hari', 'readonly'=>'true']) !!}
+
+        </div>
+        @if ($errors->has('hari'))
+            <span class="help-block">{{ $errors->first('hari') }}</span>
+        @endif
+      </div>
 
     
 

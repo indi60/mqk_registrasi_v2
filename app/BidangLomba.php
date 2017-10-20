@@ -16,9 +16,7 @@ class BidangLomba extends Model
 
 
 	  ];
-	  protected $guarded = [
-	      'id_bidang_lomba'
-	  ];
+	  
 
 	  public function peserta(){
 	      return $this->hasMany('App\Peserta','bidang_lomba_id','id_bidang_lomba');

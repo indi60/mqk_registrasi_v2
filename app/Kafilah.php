@@ -19,9 +19,7 @@ class Kafilah extends Model
     'provinsi_id',
 
   ];
-  protected $guarded = [
-      'id_kafilah'
-  ];
+ 
 
   public function transportasi(){
       return $this->hasMany('App\Transportasi','kafilah_id','id_kafilah');

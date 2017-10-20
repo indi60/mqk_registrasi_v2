@@ -10,6 +10,7 @@ class Peserta extends Model
   protected $primaryKey = 'id_peserta';
   protected $fillable=
   [
+    'id_peserta',
     'no_registrasi',
     'no_peserta',
     'marhalah_id',
@@ -60,9 +61,7 @@ class Peserta extends Model
           'cek_sk',
 
   ];
-  protected $guarded = [
-      'id_peserta'
-  ];
+ 
 
 
   public function kafilah(){

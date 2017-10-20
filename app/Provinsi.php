@@ -14,9 +14,7 @@ class Provinsi extends Model
     'nama_provinsi',
 
   ];
-  protected $guarded = [
-      'id_provinsi'
-  ];
+  
   public function kabupaten(){
       return $this->hasMany('App\Kabupaten','provinsi_id','id_provinsi');
     }

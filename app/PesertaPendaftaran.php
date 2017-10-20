@@ -49,9 +49,7 @@ class PesertaPendaftaran extends Model
     'updated_by',
 
   ];
-  protected $guarded = [
-      'id_peserta'
-  ];
+ 
 
 
   public function kafilah(){

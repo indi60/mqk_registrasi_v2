@@ -58,7 +58,9 @@
                                 <th style="text-align: center;">Lomba</th>
                                 <th style="text-align: center;">Marhalah</th>
                                 <th style="text-align: center;">Babak</th>
-                                <th style="text-align: center;">Putra / Putri</th>
+                                <th style="text-align: center;">Tanggal</th>
+                                <th style="text-align: center;">Hari</th>
+                                
                                 <th style="text-align: center;">Dewan Hakim <br>I</th>
                                 <th style="text-align: center;">Dewan Hakim <br>II</th>
                                 <th style="text-align: center;">Dewan Hakim <br>III</th>
@@ -78,13 +80,9 @@
                                 <td>{{ $row->bidang_lomba_majelis->bidang_lomba }}</td>
                                 <td>{{ $row->marhalah_majelis->marhalah }}</td>
                                 <td>{{ $row->babak->nama_babak }}</td>
-                                <td>
-                                  @if($row->pria_wanita == 'pria')
-                                  Putra
-                                  @else
-                                  Putri
-                                  @endif
-                                </td>
+                                <td>{{ $row->tanggal }}</td>
+                                <td>{{ $row->hari }}</td>
+                                
                                 <td>
                                 @if(isset($row->dewan_hakim_1_majelis))
                                 {{ $row->dewan_hakim_1_majelis->nama_lengkap }}
@@ -115,7 +113,7 @@
                                 <td width="200px" style="text-align: center;">
                                   <a class="btn btn-xs btn-success" href="{{ URL::to('operator_registrasi/majelis/'.$row->id_majelis.'/edit') }}"><i class="fa fa-edit fa-fw"></i> Edit</a>
                                   &nbsp;&nbsp;
-                                  <a class="btn btn-xs btn-success" href="{{ URL::to('operator_registrasi/majelis/'.$row->id_majelis.'/edit') }}"><i class="fa fa-eye fa-fw"></i> ({{$row->jumlah_peserta}}) Peserta</a>
+                                  <a class="btn btn-xs btn-success" href="{{ URL::to('operator_registrasi/majelis/list_peserta/'.$row->id_majelis) }}"><i class="fa fa-eye fa-fw"></i> ({{$row->jumlah_peserta}}) Peserta</a>
                                   <!--
                                   <a class="btn btn-xs btn-danger" href="{{ URL::to('operator_registrasi/majelis/delete/'.$row->id_majelis) }}" data-token="{!! csrf_token() !!} " data-method="delete" data-confirm="Anda yakin menghapus Data Majelis?"><i class="fa fa-remove fa-fw"></i> Hapus</a>
                                   -->

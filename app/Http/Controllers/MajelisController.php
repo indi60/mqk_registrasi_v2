@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 
 use App\Http\Requests;
 use App\Majelis;
@@ -13,6 +14,7 @@ use App\Peserta;
 use App\PesertaPendaftaran;
 use Validator;
 use App\MajelisPeserta;
+
 
 class MajelisController extends Controller
 {
@@ -28,11 +30,91 @@ class MajelisController extends Controller
 
         foreach ($majelis_list as $row) {
             $row->jumlah_peserta = MajelisPeserta::where('majelis_id', $row->id_majelis)->count();
+
         }
 
         //dd($majelis_list[0]->dewan_hakim_1_majelis);
         
         return view('home.majelis.index', compact('majelis_list','jumlah_majelis'));
+    }
+
+    public function ambil_nilai($id_majelis_peserta){
+
+        $nilai = array();
+        $data = MajelisPeserta::where('id_majelis_peserta', $id_majelis_peserta)->first();
+        $nilai[0] = $data['nilai_1_hakim_1'] + $data['nilai_2_hakim_1'] + $data['nilai_3_hakim_1'] + $data['nilai_4_hakim_1'] + $data['nilai_5_hakim_1'] + $data['nilai_6_hakim_1'];
+        $nilai[1] = $data['nilai_1_hakim_2'] + $data['nilai_2_hakim_2'] + $data['nilai_3_hakim_2'] + $data['nilai_4_hakim_2'] + $data['nilai_5_hakim_2'] + $data['nilai_6_hakim_2'];
+        $nilai[2] = $data['nilai_1_hakim_3'] + $data['nilai_2_hakim_3'] + $data['nilai_3_hakim_3'] + $data['nilai_4_hakim_3'] + $data['nilai_5_hakim_3'] + $data['nilai_6_hakim_3'];
+
+        return $nilai;
+    }
+
+    public function list_peserta($id)
+    {
+        $list_peserta = MajelisPeserta::where('majelis_id', $id)->orderBy('no_urut')->get();
+        //$peserta = array();
+
+        //dd($list_peserta);
+        
+        foreach ($list_peserta as $row) {
+            $row->jenis_lomba = $row->majelis->bidang_lomba_majelis->jenis_lomba;
+            $row->nilai = $this->ambil_nilai($row->id_majelis_peserta);
+            $row->masuk_final = false;
+            if($row->majelis->babak_id == 1){
+
+                $majelis_final = Majelis::where('bidang_lomba_id',$row->majelis->bidang_lomba_id)
+                            ->where('marhalah_id', $row->majelis->marhalah_id)
+                            ->where('babak_id', 2)
+                            ->first();
+                $masuk_final = MajelisPeserta::where('no_peserta',$row->no_peserta)->where('majelis_id', $majelis_final->id_majelis)->first();
+                if($masuk_final != null){
+                    $row->masuk_final = true;    
+                }
+                
+            }
+
+        }
+
+        
+        return view('home.majelis.list_peserta', compact('peserta','list_peserta'));
+    }
+
+    public function masuk_final($no_peserta, $majelis_id)
+    {
+
+        $majelis_penyisihan = Majelis::findOrFail($majelis_id);
+        $majelis_final = Majelis::where('bidang_lomba_id',$majelis_penyisihan->bidang_lomba_id)
+                            ->where('marhalah_id', $majelis_penyisihan->marhalah_id)
+                            ->where('babak_id', 2)
+                            ->first();
+
+        MajelisPeserta::create([
+            'no_peserta' => $no_peserta,
+            'majelis_id' => $majelis_final->id_majelis
+            ]);
+
+        return $this->list_peserta($majelis_id);
+
+
+    }
+
+    public function update_no_urut(Request $request, $id)
+    {
+
+        $test = MajelisPeserta::find($id);
+        $column_name = Input::get('name');
+        $column_value = Input::get('value');
+
+        if( Input::has('name') && Input::has('value')) {
+            $test = MajelisPeserta::select()
+                ->where('id_majelis_peserta', '=', $id)
+                ->update([$column_name => $column_value]);
+            return response()->json([ 'code'=>200], 200);
+        }
+
+        return response()->json([ 'error'=> 400, 'message'=> 'Not enought params' ], 400);
+
+
     }
 
     /**
@@ -50,9 +132,9 @@ class MajelisController extends Controller
         $list_bidang_lomba = BidangLomba::lists('bidang_lomba','id_bidang_lomba');
         $list_babak = Babak::lists('nama_babak','id_babak');
 
-        $list_dewan_hakim = PesertaPendaftaran::where('jenis_peserta','dewan_hakim')->lists('nama_lengkap','id_peserta');
+        $list_dewan_hakim = Peserta::where('jenis_peserta','dewan_hakim')->lists('nama_lengkap','id_peserta');
 
-        $list_panitera = PesertaPendaftaran::where('jenis_peserta','panitera')->lists('nama_lengkap','id_peserta');
+        $list_panitera = Peserta::where('jenis_peserta','panitera')->lists('nama_lengkap','id_peserta');
 
 
 
@@ -123,9 +205,9 @@ class MajelisController extends Controller
         $list_bidang_lomba = BidangLomba::lists('bidang_lomba','id_bidang_lomba');
         $list_babak = Babak::lists('nama_babak','id_babak');
 
-        $list_dewan_hakim = PesertaPendaftaran::where('jenis_peserta','dewan_hakim')->lists('nama_lengkap','id_peserta');
+        $list_dewan_hakim = Peserta::where('jenis_peserta','dewan_hakim')->lists('nama_lengkap','id_peserta');
 
-        $list_panitera = PesertaPendaftaran::where('jenis_peserta','panitera')->lists('nama_lengkap','id_peserta');
+        $list_panitera = Peserta::where('jenis_peserta','panitera')->lists('nama_lengkap','id_peserta');
 
         return view('home.majelis.edit', compact('majelis','list_marhalah','list_bidang_lomba','list_dewan_hakim','list_panitera','list_babak'));
     }
@@ -141,6 +223,7 @@ class MajelisController extends Controller
     {
         //
         $majelis = Majelis::findOrFail($id);
+        //dd($request->all());
         $majelis->update($request->all());
         return redirect('operator_registrasi/majelis');
     }

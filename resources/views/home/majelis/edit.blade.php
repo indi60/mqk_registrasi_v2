@@ -3,7 +3,8 @@
 
 
 @section('css')
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link href="{{ asset('css/plugins/clockpicker/clockpicker.css') }} " rel="stylesheet">
 @stop
 
 @section('title', 'MQKN-2017')
@@ -44,6 +45,10 @@
 @section('script')
 
 
+<!-- Data picker -->
+
+<script src="{{ asset('js/plugins/clockpicker/clockpicker.js') }}"></script>
+
 <script>
 
 $(function() {
@@ -54,5 +59,27 @@ $(function() {
 });
 </script>
 
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function(){
+
+      $(".tanggal").change(function() {
+        var d = new Date($(".tanggal").val());
+        var days = ["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+
+
+        document.getElementById("hari").value = days[d.getDay()];
+      });
+
+      $('.clockpicker').clockpicker();
+
+
+
+
+
+
+    });
+
+</script>
 @stop
 

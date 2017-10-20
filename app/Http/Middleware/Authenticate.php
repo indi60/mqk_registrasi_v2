@@ -52,6 +52,11 @@ class Authenticate
                 return redirect('/panitera');
             }
 
+            if ($user && $user->isPaniteraKitab())
+            {
+                return redirect('/panitera_kitab');
+            }
+
         return $next($request);
     }
 }

@@ -15,9 +15,7 @@ class Babak extends Model
 
 
 	  ];
-	  protected $guarded = [
-	      'id_babak'
-	  ];
+	  
 
 	  public function majelis(){
 	      return $this->hasMany('App\Majelis','babak_id','id_babak');

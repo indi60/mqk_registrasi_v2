@@ -15,9 +15,7 @@ class ModaTransportasi extends Model
 
 
   ];
-  protected $guarded = [
-      'id_moda_transportasi'
-  ];
+ 
 
   public function transportasi(){
       return $this->hasMany('App\Transportasi','dengan','id_moda_transportasi');
