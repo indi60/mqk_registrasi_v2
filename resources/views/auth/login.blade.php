@@ -29,7 +29,7 @@ body{
     height: auto;
     background-image: url({{url('/images/mqk_background.jpg')}});
     background-size: cover;
-    -webkit-filter: blur(5px);
+    /*-webkit-filter: blur(5px);*/
     z-index: 0;
 }
 
