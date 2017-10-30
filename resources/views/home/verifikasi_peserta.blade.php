@@ -255,12 +255,15 @@ border-radius: 0!important;
                     <div class="text-center pdf-toolbar">
 
                             <div class="btn-group">
-                                <button id="prev" class="btn btn-white"><i class="fa fa-long-arrow-left"></i> <span class="hidden-xs">Previous</span></button>
-                                <button id="next" class="btn btn-white"><i class="fa fa-long-arrow-right"></i> <span class="hidden-xs">Next</span></button>
+                                
                                 <button id="zoomin" class="btn btn-white"><i class="fa fa-search-minus"></i> <span class="hidden-xs">Zoom In</span></button>
                                 <button id="zoomout" class="btn btn-white"><i class="fa fa-search-plus"></i> <span class="hidden-xs">Zoom Out</span> </button>
                                 <button id="zoomfit" class="btn btn-white"> 100%</button>
                                 <span class="btn btn-white hidden-xs">Page: </span>
+
+                                <button id="prev" class="btn btn-white"><i class="fa fa-long-arrow-left"></i> <span class="hidden-xs">Previous</span></button>
+                                <button id="next" class="btn btn-white"><i class="fa fa-long-arrow-right"></i> <span class="hidden-xs">Next</span></button>
+
 
                             <div class="input-group">
                                 <input type="text" class="form-control" id="page_num">
@@ -269,6 +272,7 @@ border-radius: 0!important;
                                     <button type="button" class="btn btn-white" id="page_count">/ 22</button>
                                 </div>
                             </div>
+
 
                                 </div>
                         </div>
@@ -279,9 +283,13 @@ border-radius: 0!important;
 
 
 
+
+
             <div class="text-center m-t-md">
                 <canvas id="the-canvas" class="pdfcanvas border-left-right border-top-bottom b-r-md"></canvas>
             </div>
+
+
             </div>
 @endsection
 
@@ -318,9 +326,42 @@ border-radius: 0!important;
         // header on that server.
         //
 
-        var url = '/dokumen_peserta/123456.pdf';
+        var url = '/dokumen_peserta/no_document_uploaded.pdf';
         @if(isset($peserta) && $peserta->dokumen_url != "")
-        var url = '/dokumen_peserta/{{$peserta->dokumen_url}}';
+
+          @if($peserta->jenis_peserta == 'peserta')
+          url = '/dokumen_peserta/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'panitia')
+          url = '/dokumen_panitia/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'panitera')
+          url = '/dokumen_panitera/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'bazar')
+          url = '/dokumen_bazar/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'vip')
+          url = '/dokumen_vip/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'pentas_seni')
+          url = '/dokumen_pentasseni/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'dewan_hakim')
+          url = '/dokumen_dewan_hakim/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'lainnya')
+          url = '/dokumen_lainnya/{{$peserta->dokumen_url}}';
+          @endif
+        
+        
         @endif
 
 

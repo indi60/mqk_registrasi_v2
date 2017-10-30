@@ -6,44 +6,23 @@
 
 body {
 			
-			font-family:'verdana';
+			font-family:'arial, verdana';
 		}
 		.id-card-holder {
-			width: 270px;
+			width: 380px;
 		    padding: 4px;
 		    margin: 0 auto;
-		    background-color: #1f1f1f;
-		    border-radius: 5px;
+		    
+		    
 		    position: relative;
 		}
-		.id-card-holder:after {
-		    content: '';
-		    width: 7px;
-		    display: block;
-		    background-color: #0a0a0a;
-		    height: 100px;
-		    position: absolute;
-		    top: 105px;
-		    border-radius: 0 5px 5px 0;
-		}
-		.id-card-holder:before {
-		    content: '';
-		    width: 7px;
-		    display: block;
-		    background-color: #0a0a0a;
-		    height: 100px;
-		    position: absolute;
-		    top: 105px;
-		    left: 268px;
-		    border-radius: 5px 0 0 5px;
-		}
+		
 		.id-card {
 			
 			background-color: #fff;
 			padding: 10px;
 			border-radius: 10px;
 			text-align: center;
-			box-shadow: 0 0 1.5px 0px #b9b9b9;
 		}
 		.id-card img {
 			margin: 0 auto;
@@ -52,7 +31,7 @@ body {
 			
 		}
 		.photo img {
-			width: 100px;
+			height: 150px;
     		margin-top: 15px;
 		}
 		h2 {
@@ -64,55 +43,18 @@ body {
 			margin: 2.5px 0;
 			font-weight: 300;
 		}
-		.qr-code img {
+		/*.qr-code img {
 			width: 50px;
-		}
+		}*/
 		p {
 			font-size: 5px;
 			margin: 2px;
 		}
+
+		.centered-and-cropped { object-fit: cover }
+
+
 		
-		.id-card-tag-strip {
-			width: 45px;
-		    height: 40px;
-		    background-color: #0950ef;
-		    margin: 0 auto;
-		    border-radius: 5px;
-		    position: relative;
-		    top: 9px;
-		    z-index: 1;
-		    border: 1px solid #0041ad;
-		}
-		.id-card-tag-strip:after {
-			content: '';
-		    display: block;
-		    width: 100%;
-		    height: 1px;
-		    background-color: #c1c1c1;
-		    position: relative;
-		    top: 10px;
-		}
-		.id-card-tag {
-			width: 0;
-			height: 0;
-			border-left: 100px solid transparent;
-			border-right: 100px solid transparent;
-			border-top: 100px solid #0958db;
-			margin: -10px auto -30px auto;
-		}
-		.id-card-tag:after {
-			content: '';
-		    display: block;
-		    width: 0;
-		    height: 0;
-		    border-left: 50px solid transparent;
-		    border-right: 50px solid transparent;
-		    border-top: 100px solid #d7d6d3;
-		    margin: -10px auto -30px auto;
-		    position: relative;
-		    top: -130px;
-		    left: -50px;
-		}
 
 
 
@@ -121,28 +63,16 @@ body {
 
 </style>
 </head>
-<body>
+<body style="text-transform: uppercase;font-family: 'arial';">
 
 <span id="widget" class="widget">
     <div class="id-card-holder">
 		<div class="id-card">
 
-			<div class="header"  style="height: 60px;text-align: center">
-			
-			<table align="" width="100%">
-				<tr>
-				<td align="left"><img src="{{ base_path() }}/public/images/kemenag.png" width="50px" /></td>
-				
-				<td align="right" style="padding-left: 130px;"><img src="{{ base_path() }}/public/images/mqk.png" width="70px" /></td>
-				</tr>
-			</table>
-			
-			</div>
-
-			<div class="header">
+			<!-- <div class="header">
 				
 
-				<p style="font-size: 13px;">MUSABAQAH QIRA'ATUL KUTUB <br> NASIONAL KE-VI</p>
+				 <p style="font-size: 13px;">MUSABAQAH QIRA'ATUL KUTUB <br> NASIONAL KE-VI</p> 
 
 				<hr>				
 				<p style="font-size: 20px;font-weight: bold;">
@@ -166,32 +96,79 @@ body {
 
 				</p>
 				<hr>				
-			</div>
-			<div class="photo" style="height: 100px;text-align: center">
+			</div> -->
+			<div class="photo" id="crop" align="center" style="margin-top: 2.2cm;margin-bottom: 30px">
 
-			<table align="center">
-				<tr>
-				<td align="center"><img src="{{ base_path() }}/public/photo/{{ $peserta->foto }}" /></td>
-				</tr>
-			</table>
+				
+
+				<!-- <img class="centered-and-cropped" width="150" height="150" src="{{ base_path() }}/public/photo/{{ $peserta->foto }}" /> -->
+				<img class="centered-and-cropped" width="150" height="150" src="{{asset('photo/'.$peserta->foto)}}" />
+			
 
 			
 				
 			</div>
-			<p style="font-size: 20px"> {{$peserta->nama_lengkap}} </p>
+			<p style="font-size: 20px;margin-bottom: 5px;"> {{$peserta->nama_lengkap}} </p>
+			@if($peserta->jenis_peserta == 'peserta')
+			<p style="font-size: 16px;margin-bottom: 5px;">{{$peserta->kafilah->nama_kafilah}}</p>
+			<p style="font-size: 16px;margin-bottom: 27px;">{{$peserta->bidang_lomba_peserta->bidang_lomba}} - {{$peserta->marhalah_peserta->marhalah}} </p>
+			@elseif($peserta->jenis_peserta == 'panitera')
+			<p style="font-size: 16px;margin-bottom: 5px;">PANITERA</p>
+			<p style="font-size: 16px;margin-bottom: 27px;">PUSAT </p>
+			@elseif($peserta->jenis_peserta == 'panitera')
+			<p style="font-size: 16px;margin-bottom: 5px;">DEWAN HAKIM</p>
+			<p style="font-size: 16px;margin-bottom: 27px;">PUSAT </p>
+			@elseif($peserta->jenis_peserta == 'panitia' && $peserta->kafilah_id==0)
+			<p style="font-size: 16px;margin-bottom: 5px;">PANITIA</p>
+			<p style="font-size: 16px;margin-bottom: 27px;">PUSAT </p>
+			@elseif($peserta->jenis_peserta == 'panitia' && $peserta->kafilah_id!=0)
+			<p style="font-size: 16px;margin-bottom: 5px;">{{$peserta->kafilah->nama_kafilah}}</p>
+			<p style="font-size: 16px;margin-bottom: 27px;">PANITIA / PEMBINA </p>
+			@elseif($peserta->jenis_peserta == 'vip')
+			<p style="font-size: 16px;margin-bottom: 5px;">{{$peserta->kafilah->nama_kafilah}}</p>
+			<p style="font-size: 16px;margin-bottom: 27px;">VIP</p>
+			@elseif($peserta->jenis_peserta == 'lainnya')
+			<p style="font-size: 16px;margin-bottom: 5px;">{{$peserta->kafilah->nama_kafilah}}</p>
+			<p style="font-size: 16px;margin-bottom: 27px;">PESERTA LAIN-LAIN</p>
+			@endif
 			
 			<div class="qr-code" style="text-align: center;">
 			<table align="center">
 			<tr>
 			<td align="center">
+
+				@if($peserta->jenis_peserta == 'peserta')
+				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".$peserta->kafilah->nama_kafilah."\n".$peserta->bidang_lomba_peserta->bidang_lomba."\n".$peserta->marhalah_peserta->marhalah, 'QRCODE')}}" alt="barcode" />
+				@elseif($peserta->jenis_peserta == 'panitera')
+				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PANITERA - PUSAT', 'QRCODE')}}" alt="barcode" />
+
+				@elseif($peserta->jenis_peserta == 'dewan hakim')
+				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'DEWAN HAKIM - PUSAT', 'QRCODE')}}" alt="barcode" />
+
+				@elseif($peserta->jenis_peserta == 'panitia' && $peserta->kafilah_id==0)
+				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PANITIA PUSAT', 'QRCODE')}}" alt="barcode" />
+
+				@elseif($peserta->jenis_peserta == 'panitia' && $peserta->kafilah_id!=0)
+				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PANITIA'."\n".$peserta->kafilah->nama_kafilah, 'QRCODE')}}" alt="barcode" />
+
+				@elseif($peserta->jenis_peserta == 'vip' )
+				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'VIP'."\n".$peserta->kafilah->nama_kafilah, 'QRCODE')}}" alt="barcode" />
+
+				@elseif($peserta->jenis_peserta == 'lainnya')
+				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PESERTA LAIN-LAIN'."\n".$peserta->kafilah->nama_kafilah, 'QRCODE')}}" alt="barcode" />
+
+
+				@endif
+
+
 				<?php 
-                echo DNS2D::getBarcodeHTML($peserta->no_peserta, "QRCODE",3,3);
+                //echo DNS2D::getBarcodeHTML($peserta->no_peserta, "QRCODE",4,4);
                 ?>
             </td>
             </tr>
             </table>    
 			</div>
-			<p style="font-size: 20px">
+			<p style="font-size: 15px">
 				@if($peserta->jenis_peserta == 'peserta')
                 {{ $peserta->no_peserta }}
                 @elseif($peserta->jenis_peserta == 'panitia')
@@ -210,16 +187,23 @@ body {
                 DH-{{ $peserta->no_peserta }}
                 @endif
 			</p>
-			<hr>
-			<p><strong>"PENGG"</strong>HOUSE,4th Floor, TC 11/729(4), Division Office Road <p>
+			<!-- <hr>
+			<p> -->
+				<!-- <strong>"PENGG"</strong>HOUSE,4th Floor, TC 11/729(4), Division Office Road <p>
 			<p>Near PMG Junction, Thiruvananthapuram Kerala, India <strong>695033</strong></p>
-			<p>Ph: 9446062493 | E-ail: info@onetikk.info</p>
+			<p>Ph: 9446062493 | E-ail: info@onetikk.info</p> -->
 
 		</div>
 	</div>
   <!-- ngRepeat: field in getChildren(field) -->
 </span>
 <br/>
+
+<script type="text/javascript">
+<!--
+window.print();
+//-->
+</script>
 
 </body>
 </html>

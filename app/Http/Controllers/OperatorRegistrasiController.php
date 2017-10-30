@@ -167,24 +167,40 @@ class OperatorRegistrasiController extends Controller
 	  	return sprintf('%04s', $no_peserta);
 	  }
 
-	  public function verifikasi_peserta_valid(Request $request){
-
+	  public function register_all()
+	  {
 	  	
+	  	$all_peserta = PesertaPendaftaran::get();
+	  	foreach ($all_peserta as $row) {
+	  		$peserta_valid = PesertaPendaftaran::where('no_registrasi', $row->no_registrasi)->first()->toArray();
+	  		$input = array();
+	  		$input['_token'] = "7abt5CPqBEJ1f6eszCoeFRYvwgWwCQlVhoYEUwFm";
+	  		$input['no_registrasi'] = $row->no_registrasi;
+	  		$input['btn'] = "valid";
+	  		$input['alasan'] = "";
+	  		//cek apakah sudah ada ditable 
+	  		$cek = Peserta::where('id_peserta',$row->id_peserta)->first();
+	  		//dd($cek);
+	  		if($cek==null){
+	  			$this->verifikasi_all($input);	
+	  		}
+	  		
 
-	  	//return "sayang";
+	  	// 	"_token" => "7abt5CPqBEJ1f6eszCoeFRYvwgWwCQlVhoYEUwFm"
+		  // "no_registrasi" => "34140100038"
+		  // "btn" => "valid"
+		  // "alasan" => ""
+	  	}
 	  	
+	  }
+
+	  public function verifikasi_all($input){
 
 	  	//masuk ke halaman konfirmasi
 
-	  	$input = $request->all();
-	  	//$peserta = PesertaPendaftaran::where('no_registrasi', $input['no_registrasi'])->first();
-
-
-	  	//return view('home.konfirmasi_validasi', compact('input','peserta'));
-
-	  	
-
-	  	
+	  	//$input = $request->all();
+	  	//dd($input);
+	  	$no_urut =0;
 
 	  	$peserta_valid = PesertaPendaftaran::where('no_registrasi', $input['no_registrasi'])->first()->toArray();
 	  	
@@ -192,10 +208,38 @@ class OperatorRegistrasiController extends Controller
 
 	  		//cek jenis lomba yang diikuti grup atau individu
 	  		$jenis_lomba = BidangLomba::where('id_bidang_lomba',$peserta_valid['bidang_lomba_id'])->value('jenis_lomba');
-	  		if($jenis_lomba == 'individu'){
-	  			$peserta_valid['no_peserta'] = $this->generate_no_peserta($peserta_valid['jenis_kelamin']); //generate nomor peserta
-	  		}else{
+
+
+	  		if($jenis_lomba == 'kelompok'){
 	  			$peserta_valid['no_peserta'] = $this->generate_no_peserta_grup($peserta_valid['jenis_kelamin'], $peserta_valid); //generate nomor peserta
+	  		}else{
+	  			$peserta_valid['no_peserta'] = $this->generate_no_peserta($peserta_valid['jenis_kelamin']); //generate nomor peserta
+	  		}
+
+	  		//cek jenis lomba apakah individu, klo individu hitung semua peserta sesuai jenis kelaminnya
+	  		if($jenis_lomba == 'individu'){
+	  			$total_peserta = PesertaPendaftaran::where('bidang_lomba_id', $peserta_valid['bidang_lomba_id'])->where('jenis_kelamin',$peserta_valid['jenis_kelamin'])->where('marhalah_id',$peserta_valid['marhalah_id'])->count();
+
+	  			$no_urut_eksis = array();
+	  			$cek_no_urut = DB::table('majelis_peserta')
+	  				->join('majelis', 'majelis.id_majelis', '=', 'majelis_peserta.majelis_id')
+	  				->where('bidang_lomba_id', $peserta_valid['bidang_lomba_id'])->where('marhalah_id',$peserta_valid['marhalah_id'])->where('babak_id',1)
+	  				->select('no_urut')
+	  				->get();
+	  			
+	  			foreach ($cek_no_urut as $row) {
+	  					$no_urut_eksis[] = $row->no_urut;
+	  				}	
+	  			
+	  			if($peserta_valid['jenis_kelamin'] == 'pria'){
+	  				do {
+					    $no_urut = rand(1, $total_peserta*2);
+					} while(in_array($no_urut, $no_urut_eksis) || $no_urut%2==0);
+	  			}else{
+	  				do {
+					    $no_urut = rand(1, $total_peserta*2);
+					} while(in_array($no_urut, $no_urut_eksis) || $no_urut%2!=0);
+	  			}
 	  		}
 
 		  	
@@ -232,10 +276,11 @@ class OperatorRegistrasiController extends Controller
 
 	  	//get_id_majelis
 	  	//dd($peserta_valid);
-	  	if($peserta_valid['jenis_peserta'] == 'peserta'){
+	  	if($peserta_valid['jenis_peserta'] == 'peserta' && $input['btn'] == 'valid'){
 	  		$input_peserta_majelis = array();
 	  		$input_peserta_majelis['majelis_id'] = Majelis::where('bidang_lomba_id', $peserta_valid['bidang_lomba_id'])->where('marhalah_id',$peserta_valid['marhalah_id'])->where('babak_id',1)->value('id_majelis');
 	  		$input_peserta_majelis['no_peserta'] = $peserta_valid['no_peserta'];
+	  		$input_peserta_majelis['no_urut'] = $no_urut;
 
 	  		if(MajelisPeserta::where('majelis_id', $input_peserta_majelis['majelis_id'])->where('no_peserta',$input_peserta_majelis['no_peserta'])->count() == 0){
 
@@ -248,6 +293,109 @@ class OperatorRegistrasiController extends Controller
 
 	  	$peserta = Peserta::create($peserta_valid);
 	  	return redirect('operator_registrasi/verifikasi_result');
+	  	
+	  	//dd($peserta_valid->no_peserta);
+	  	//return view('home/dashboard',compact('peserta','total_found','isValidated'));
+	  }
+
+	  public function verifikasi_peserta_valid(Request $request){
+	  	$no_urut =0;
+
+	  	//masuk ke halaman konfirmasi
+
+	  	$input = $request->all();
+	  	//dd($input);
+
+	  	$peserta_valid = PesertaPendaftaran::where('no_registrasi', $input['no_registrasi'])->first()->toArray();
+
+	  	
+	  	if($input['btn'] == 'valid'){
+
+	  		//cek jenis lomba yang diikuti grup atau individu
+	  		$jenis_lomba = BidangLomba::where('id_bidang_lomba',$peserta_valid['bidang_lomba_id'])->value('jenis_lomba');
+	  		if($jenis_lomba == 'kelompok'){
+	  			$peserta_valid['no_peserta'] = $this->generate_no_peserta_grup($peserta_valid['jenis_kelamin'], $peserta_valid); //generate nomor peserta
+	  		}else{
+	  			$peserta_valid['no_peserta'] = $this->generate_no_peserta($peserta_valid['jenis_kelamin']); //generate nomor peserta
+	  		}
+
+	  		//cek jenis lomba apakah individu, klo individu hitung semua peserta sesuai jenis kelaminnya
+	  		if($jenis_lomba == 'individu'){
+	  			$total_peserta = PesertaPendaftaran::where('bidang_lomba_id', $peserta_valid['bidang_lomba_id'])->where('jenis_kelamin',$peserta_valid['jenis_kelamin'])->where('marhalah_id',$peserta_valid['marhalah_id'])->count();
+
+	  			$no_urut_eksis = array();
+	  			$cek_no_urut = DB::table('majelis_peserta')
+	  				->join('majelis', 'majelis.id_majelis', '=', 'majelis_peserta.majelis_id')
+	  				->where('bidang_lomba_id', $peserta_valid['bidang_lomba_id'])->where('marhalah_id',$peserta_valid['marhalah_id'])->where('babak_id',1)
+	  				->select('no_urut')
+	  				->get();
+	  			
+	  			foreach ($cek_no_urut as $row) {
+	  					$no_urut_eksis[] = $row->no_urut;
+	  				}	
+	  			
+	  			if($peserta_valid['jenis_kelamin'] == 'pria'){
+	  				do {
+					    $no_urut = rand(1, $total_peserta*2);
+					} while(in_array($no_urut, $no_urut_eksis) || $no_urut%2==0);
+	  			}else{
+	  				do {
+					    $no_urut = rand(1, $total_peserta*2);
+					} while(in_array($no_urut, $no_urut_eksis) || $no_urut%2!=0);
+	  			}
+	  		}
+
+		  	
+		  	$peserta_valid['status'] = 1; //valid
+		  	$peserta_valid['alasan'] = '';
+		  	$peserta_valid['updated_by'] = Auth::user()->id_pengguna; //valid
+
+		  	$total_found = 1;
+	  		$isValidated = true;
+
+	  	}else{
+
+	  		$peserta_valid['no_peserta'] = 0;
+		  	$peserta_valid['status'] = 2; //valid
+		  	$peserta_valid['alasan'] = $input['alasan'];
+		  	$peserta_valid['updated_by'] = Auth::user()->id_pengguna; //valid
+
+		  	$total_found = 1;
+	  		$isValidated = false;
+
+	  	}
+
+
+	  	
+
+	  	//ceklist syarat
+	  	//dd($peserta_valid);
+	  	isset($input['cek_form_data_peserta']) ? $peserta_valid['cek_form_data_peserta'] = 1 : $peserta_valid['cek_form_data_peserta'] = 0;
+	  	isset($input['cek_izin_operasional_pesantren']) ? $peserta_valid['cek_izin_operasional_pesantren'] = 1 : $peserta_valid['cek_izin_operasional_pesantren'] = 0;
+	  	isset($input['cek_raport']) ? $peserta_valid['cek_raport'] = 1 : $peserta_valid['cek_raport'] = 0;
+	  	isset($input['cek_akte_kelahiran']) ? $peserta_valid['cek_akte_kelahiran'] = 1 : $peserta_valid['cek_akte_kelahiran'] = 0;
+
+	  	isset($input['cek_sk']) ? $peserta_valid['cek_sk'] = 1 : $peserta_valid['cek_sk'] = 0;
+
+	  	//get_id_majelis
+	  	//dd($peserta_valid);
+	  	if($peserta_valid['jenis_peserta'] == 'peserta' && $input['btn'] == 'valid'){
+	  		$input_peserta_majelis = array();
+	  		$input_peserta_majelis['majelis_id'] = Majelis::where('bidang_lomba_id', $peserta_valid['bidang_lomba_id'])->where('marhalah_id',$peserta_valid['marhalah_id'])->where('babak_id',1)->value('id_majelis');
+	  		$input_peserta_majelis['no_peserta'] = $peserta_valid['no_peserta'];
+	  		$input_peserta_majelis['no_urut'] = $no_urut;
+
+	  		if(MajelisPeserta::where('majelis_id', $input_peserta_majelis['majelis_id'])->where('no_peserta',$input_peserta_majelis['no_peserta'])->count() == 0){
+
+	  			$peserta_majelis = MajelisPeserta::create($input_peserta_majelis);	
+	  		}
+
+
+	  			  		
+	  	}
+
+	  	$peserta = Peserta::create($peserta_valid);
+	  	return redirect('operator_registrasi/verifikasi_result')->with( [ 'isValidated' => $isValidated ] );
 	  	
 	  	//dd($peserta_valid->no_peserta);
 	  	//return view('home/dashboard',compact('peserta','total_found','isValidated'));
@@ -302,11 +450,11 @@ class OperatorRegistrasiController extends Controller
         //dd(base_path()."/public/images/mqk.png");
         //return $pdf->download('formulirpengajuanbeasiswa.pdf');
         //return $pdf->stream();
-        return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('home.cetak_kartu')->stream();
+        // return PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->setPaper(array(0,0,396.85,529.13))->loadView('home.cetak_kartu')->stream();
 
 
 
-	  	// return view('home/cetak_kartu',compact('peserta'));
+	  	return view('home/cetak_kartu',compact('peserta'));
 	  }
 
 	  public function rekapitulasi_peserta(){
@@ -323,8 +471,12 @@ class OperatorRegistrasiController extends Controller
 	      $list_kafilah = Kafilah::lists('nama_kafilah','id_kafilah');
 	      $nama_kafilah = Kafilah::where('id_kafilah',$input['kafilah_id'])->value('nama_kafilah');
 	      //dd($nama_kafilah);
-
-	      $peserta = Peserta::where('status',1)->where('jenis_peserta','peserta')->where('kafilah_id',$input['kafilah_id'])->get();
+	      if($input['kafilah_id'] == ""){
+	      	$peserta = Peserta::where('status',1)->where('jenis_peserta','peserta')->get();
+	      }else{
+	      	$peserta = Peserta::where('status',1)->where('jenis_peserta','peserta')->where('kafilah_id',$input['kafilah_id'])->get();	
+	      }
+	      
 	      //dd($peserta);
 
 	      return view('home.rekapitulasi.rekapitulasi_peserta',compact('nama_kafilah','peserta','list_kafilah'));
@@ -346,7 +498,12 @@ class OperatorRegistrasiController extends Controller
 	      $nama_kafilah = Kafilah::where('id_kafilah',$input['kafilah_id'])->value('nama_kafilah');
 	      //dd($nama_kafilah);
 
-	      $peserta = Peserta::where('status',2)->where('jenis_peserta','peserta')->where('kafilah_id',$input['kafilah_id'])->get();
+	      if($input['kafilah_id'] == ""){
+	      	$peserta = Peserta::where('status',2)->where('jenis_peserta','peserta')->get();
+	      }else{
+	      	$peserta = Peserta::where('status',2)->where('jenis_peserta','peserta')->where('kafilah_id',$input['kafilah_id'])->get();	
+	      }
+	      
 	      //dd($peserta);
 
 	      return view('home.rekapitulasi.rekapitulasi_peserta_invalid',compact('nama_kafilah','peserta','list_kafilah'));

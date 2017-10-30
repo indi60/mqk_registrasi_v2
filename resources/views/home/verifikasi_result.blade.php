@@ -38,7 +38,7 @@
 @section('title', 'Hasil Verifikasi')
 
 @section('content')
-
+@if(Session::get('isValidated') == true)
 <div class="error-404">
     <div class="error-code m-b-10 m-t-20">YES <i class="fa fa-warning"></i></div>
     <h2 class="font-bold">Proses Verifikasi Selesai.</h2>
@@ -51,7 +51,20 @@
         </div>
     </div>
 </div>
+@else
+<div class="error-404">
+    <div class="error-code m-b-10 m-t-20">NO <i class="fa fa-danger"></i></div>
+    <h2 class="font-bold">Proses Verifikasi Selesai.</h2>
 
+    <div class="error-desc">
+        
+        <div><br/>
+            <!-- <a class=" login-detail-panel-button btn" href="http://vultus.de/"> -->
+            <a href="{{ url('operator_registrasi/dashboard') }}" class="btn btn-primary"><span class="glyphicon glyphicon-home"></span> Go back to Homepage</a>
+        </div>
+    </div>
+</div>
+@endif
 @endsection
 
 

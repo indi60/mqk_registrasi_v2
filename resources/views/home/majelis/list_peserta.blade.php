@@ -9,6 +9,8 @@
 @section('title', 'MQKN-2017')
 
 @section('content')
+
+
 <br>
 <div class="row">
     <div class="col-lg-12">
@@ -33,10 +35,12 @@
 
                   <p style="font-size: 1.2vw;font-weight: bold;"> Marhalah </p>
                   <p style="font-size: 1.2vw;font-weight: bold;"> Babak </p>
+                  <p style="font-size: 1.2vw;font-weight: bold;"> Token </p>
                 </div>
                 <div class="col-lg-1" style="padding-bottom: 10px;">
                   <p style="font-size: 1.2vw;font-weight: bold;"> : </p> 
 
+                  <p style="font-size: 1.2vw;font-weight: bold;"> : </p>
                   <p style="font-size: 1.2vw;font-weight: bold;"> : </p>
                   <p style="font-size: 1.2vw;font-weight: bold;"> : </p>
                 </div>
@@ -44,6 +48,7 @@
                   <p style="font-size: 1.2vw;font-weight: bold;"> {{$list_peserta[0]->majelis->bidang_lomba_majelis->bidang_lomba}} </p>
                   <p style="font-size: 1.2vw;font-weight: bold;"> {{$list_peserta[0]->majelis->marhalah_majelis->marhalah}} </p>
                   <p style="font-size: 1.2vw;font-weight: bold;"> {{$list_peserta[0]->majelis->babak->nama_babak}} </p>
+                  <p style="font-size: 1.2vw;font-weight: bold;"> {{$list_peserta[0]->majelis->token}} </p>
 
                 </div>
               </div>
@@ -68,6 +73,11 @@
             <th>Nilai Hakim II</th>
             <th>Nilai Hakim III</th>
             <th>Nilai Total</th>
+
+            @if($list_peserta[0]->majelis->bidang_lomba_id == 13 || $list_peserta[0]->majelis->bidang_lomba_id == 12)
+            <th>Jumlah Menang</th>
+            @endif
+
             
             @if($list_peserta[0]->majelis->babak->nama_babak == 'Penyisihan')
             <th style="min-width:100px">Aksi</th>
@@ -116,6 +126,12 @@
              <td style="text-align: center;">
                {{ $row->nilai[0]+$row->nilai[1]+$row->nilai[2] }}
              </td>
+             @if($list_peserta[0]->majelis->bidang_lomba_id == 13 || $list_peserta[0]->majelis->bidang_lomba_id == 12)
+             <td style="text-align: center;">
+               {{$row->jumlah_menang}}
+             </td>
+             @endif
+
               @if($list_peserta[0]->majelis->babak->nama_babak == 'Penyisihan')
               <td> 
               @if(!$row->masuk_final)  

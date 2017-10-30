@@ -20,6 +20,9 @@ Route::auth();
 
 
 Route::group(array('prefix' => 'operator_registrasi','middleware' => ['operator_registrasi']), function(){
+
+    Route::get('/registerall', 'OperatorRegistrasiController@register_all');
+
 	Route::get('/', 'OperatorRegistrasiController@dashboard');
 	Route::get('/dashboard', 'OperatorRegistrasiController@dashboard');
 	Route::get('/registrasi', 'OperatorRegistrasiController@dashboard');

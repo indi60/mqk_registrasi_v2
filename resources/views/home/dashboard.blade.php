@@ -8,7 +8,7 @@
 .card {
   max-width: 100%;
   position: relative;
-  display: flex;
+  /*display: flex;*/
   flex-direction: column;
   min-height: 0;
   background: #fff;
@@ -261,16 +261,16 @@ border-radius: 0!important;
               </div>
                   <div class="panel-body">
                   @if($isValidated)
-                  <form class="" action="{{url('operator_registrasi/cetak_kartu')}}" method="post">
+                  <form target="_blank" class="" action="{{url('operator_registrasi/cetak_kartu')}}" method="post">
                               {{ csrf_field() }}
                   @endif
 
                   <div class="row">
-                      <div class="col-lg-offset-4 col-md-4 col-lg-4 " align="center">
+                      <div>
                           
                           
                           @if($isValidated  && $peserta->status == 1)
-                          <div id="image" class="responsive card card-with-border card-centred-text black-grey">
+                          <div id="image" class="responsive" >
                             
                           </div>
 
@@ -400,7 +400,7 @@ border-radius: 0!important;
                         <table>
 
 
-                        @elseif($peserta->jenis_peserta == 'dewan_hakim' || $peserta->jenis_peserta == 'panitera'  )
+                        @elseif($peserta->jenis_peserta == 'dewan_hakim'  )
 
                         <table class="table table-user-information">
                         <tbody>
@@ -420,6 +420,90 @@ border-radius: 0!important;
                             <td>Nama Instansi</td>
                             <td><strong> {{$peserta->nama_instansi}} </strong></td>
                         </tr>
+                        
+                        
+                        
+                        </tbody>
+                        </table>
+                        <table>
+
+                           @elseif( $peserta->jenis_peserta == 'panitera'  )
+
+                        <table class="table table-user-information">
+                        <tbody>
+                        <tr>
+                            <td>Nama Lengkap</td>
+                            <td><strong>{{$peserta->nama_lengkap}}</strong></td>
+                        </tr>
+                        
+
+                        <tr>
+                            <td>Posisi</td>
+                            <td><strong>PANITERA</strong></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Nama Instansi</td>
+                            <td><strong> {{$peserta->nama_instansi}} </strong></td>
+                        </tr>
+                        
+                        
+                        
+                        </tbody>
+                        </table>
+                        <table>
+
+                        @elseif( $peserta->jenis_peserta == 'panitia' )
+
+                        @if(!isset($peserta->kafilah->nama_kafilah))
+
+                        <table class="table table-user-information">
+                        <tbody>
+                        <tr>
+                            <td>Nama Lengkap</td>
+                            <td><strong>{{$peserta->nama_lengkap}}</strong></td>
+                        </tr>
+                        
+
+                        <tr>
+                            <td>Posisi</td>
+                            <td><strong>PANITIA</strong></td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Nama Instansi</td>
+                            <td><strong> {{$peserta->nama_instansi}} </strong></td>
+                        </tr>
+                        @else
+                         <table class="table table-user-information">
+                        <tbody>
+                        <tr>
+                            <td>Nama Lengkap</td>
+                            <td><strong>{{$peserta->nama_lengkap}}</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Posisi</td>
+                            <td><strong>PANITIA / PEMBINA</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Kafilah</td>
+                            <td><strong>{{$peserta->kafilah->nama_kafilah}}</strong></td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Tempat, Tanggal Lahir</td>
+                            <td><strong> {{$peserta->tempat_lahir}}, {{date('d-M-Y', strtotime($peserta->tanggal_lahir))}} </strong></td>
+                        </tr>
+                        <tr>
+                            <td>Nama Instansi</td>
+                            <td><strong> {{$peserta->nama_instansi}} </strong></td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        <table>
+                        @endif
                         
                         
                         
@@ -521,11 +605,11 @@ border-radius: 0!important;
                     <div class="ibox">
                         <div class="ibox-content border-sbottom">
                             <h4>Dokumen Pendukung</h4>
-                            <p>
+                           <!--  <p>
                                 PDF.js is a Portable Document Format (PDF) viewer that is built with HTML5.
                                 PDF.js is community-driven and supported by Mozilla Labs. The goal is to create a general-purpose, web standards-based platform for parsing and rendering PDFs.
                                  Full documentation: <a href="https://github.com/mozilla/pdf.js" target="_blank">https://github.com/mozilla/pdf.js</a>
-                            </p>
+                            </p> -->
 
                         </div>
                     </div>
@@ -600,9 +684,42 @@ border-radius: 0!important;
         // header on that server.
         //
 
-        var url = '/dokumen_peserta/123456.pdf';
+        var url = '/dokumen_peserta/no_document_uploaded.pdf';
         @if(isset($peserta) && $peserta->dokumen_url != "")
-        var url = '/dokumen_peserta/{{$peserta->dokumen_url}}';
+
+          @if($peserta->jenis_peserta == 'peserta')
+          url = '/dokumen_peserta/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'panitia')
+          url = '/dokumen_panitia/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'panitera')
+          url = '/dokumen_panitera/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'bazar')
+          url = '/dokumen_bazar/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'vip')
+          url = '/dokumen_vip/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'pentasseni')
+          url = '/dokumen_pentasseni/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'dewan_hakim')
+          url = '/dokumen_dewan_hakim/{{$peserta->dokumen_url}}';
+          @endif
+
+          @if($peserta->jenis_peserta == 'lainnya')
+          url = '/dokumen_lainnya/{{$peserta->dokumen_url}}';
+          @endif
+        
+        
         @endif
 
 
@@ -758,7 +875,8 @@ border-radius: 0!important;
       var url = canvas.toDataURL();
 
       var newImg = document.createElement("img"); // create img tag
-      newImg.style.height = '200px';
+       newImg.style.height = '300px';
+       //newImg.style.weight = '500px';
       newImg.style.padding = '5px';
       newImg.id = 'logo';
       newImg.src = url;

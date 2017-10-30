@@ -101,7 +101,7 @@
               <td>{{$row->no_peserta}}</td>
               
               <td>{{$row->nama_lengkap}}</td>
-              <td>{{date_format(date_create($row->tgl_lahir),'d M Y')}}</td>
+              <td>{{date_format(date_create($row->tanggal_lahir),'d M Y')}}</td>
               <td>{{$row->marhalah_peserta->marhalah}}</td>
               <td>{{$row->bidang_lomba_peserta->bidang_lomba}}</td>
               <td>
