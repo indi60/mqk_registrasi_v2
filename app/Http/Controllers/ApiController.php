@@ -85,6 +85,11 @@ class ApiController extends Controller
 
 	  if(isset($ID_MAJELIS_PESERTA) && isset($nilai)){
 
+	  	$nilai_total = 0;
+	  	for ($i=0; $i < 18; $i++) { 
+	  		$nilai_total+=$nilai[$i];
+	  	}
+
 
 	    $ID_MAJELIS_PESERTA = MajelisPeserta::where('id_majelis_peserta',$ID_MAJELIS_PESERTA)->update([
                 'nilai_1_hakim_1' => $nilai[0],
@@ -120,6 +125,8 @@ class ApiController extends Controller
 	            'no_peserta_pemenang_hakim_1' => $nilai[24],
 	            'no_peserta_pemenang_hakim_2' => $nilai[25],
 	            'no_peserta_pemenang_hakim_3' => $nilai[26],
+
+	            'nilai_total' => $nilai_total,
 
 
 	            'jumlah_tampil' => $nilai[27],
@@ -161,6 +168,11 @@ class ApiController extends Controller
 
 	  if(isset($ID_MAJELIS_PESERTA) && isset($nilai)){
 
+	  	$nilai_total = 0;
+	  	for ($i=0; $i < 18; $i++) { 
+	  		$nilai_total+=$nilai[$i];
+	  	}
+
 
 	    $ID_MAJELIS_PESERTA = MajelisPeserta::where('id_majelis_peserta',$ID_MAJELIS_PESERTA)->update([
 	    		'jumlah_menang' => $JUMLAH_MENANG,
@@ -198,6 +210,8 @@ class ApiController extends Controller
 	            'no_peserta_pemenang_hakim_1' => $nilai[24],
 	            'no_peserta_pemenang_hakim_2' => $nilai[25],
 	            'no_peserta_pemenang_hakim_3' => $nilai[26],
+
+	            'nilai_total' => $nilai_total,
 
 
 	            'jumlah_tampil' => $nilai[27],

@@ -1,8 +1,9 @@
-@extends('layouts.app_admin')
+@extends('layouts.public')
 
 
 
 @section('css')
+<link rel="stylesheet" href="{!! asset('css/vendor.css') !!}" />
 <style type="text/css">
   
 
@@ -92,41 +93,21 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Edit Peserta Majelis  </small></h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
-
-                    <a class="close-link">
-                        <i class="fa fa-times"></i>
-                    </a>
-                </div>
+                <h5>Daftar Peserta MQKN 2017  </small></h5>
+                
             </div>
             <div class="ibox-content">
 
               <div class="row" style="padding: 10px;">
                 <div class="col-lg-2" style="padding-bottom: 10px;">
-                  <p style="font-size: 1.2vw;font-weight: bold;"> Bidang Lomba </p> 
+                  <p style="font-size: 1.2vw;font-weight: bold;"> Bidang Lomba - {{$list_peserta[0]->majelis->bidang_lomba_majelis->bidang_lomba}} </p> 
 
-                  <p style="font-size: 1.2vw;font-weight: bold;"> Marhalah </p>
-                  <p style="font-size: 1.2vw;font-weight: bold;"> Babak </p>
-                  <p style="font-size: 1.2vw;font-weight: bold;"> Token </p>
+                  <p style="font-size: 1.2vw;font-weight: bold;"> Marhalah - {{$list_peserta[0]->majelis->marhalah_majelis->marhalah}}</p>
+                  <p style="font-size: 1.2vw;font-weight: bold;"> Babak - {{$list_peserta[0]->majelis->babak->nama_babak}} </p>
+                  
                 </div>
-                <div class="col-lg-1" style="padding-bottom: 10px;">
-                  <p style="font-size: 1.2vw;font-weight: bold;"> : </p> 
-
-                  <p style="font-size: 1.2vw;font-weight: bold;"> : </p>
-                  <p style="font-size: 1.2vw;font-weight: bold;"> : </p>
-                  <p style="font-size: 1.2vw;font-weight: bold;"> : </p>
-                </div>
-                <div class="col-lg-6">
-                  <p style="font-size: 1.2vw;font-weight: bold;"> {{$list_peserta[0]->majelis->bidang_lomba_majelis->bidang_lomba}} </p>
-                  <p style="font-size: 1.2vw;font-weight: bold;"> {{$list_peserta[0]->majelis->marhalah_majelis->marhalah}} </p>
-                  <p style="font-size: 1.2vw;font-weight: bold;"> {{$list_peserta[0]->majelis->babak->nama_babak}} </p>
-                  <p style="font-size: 1.2vw;font-weight: bold;"> {{$list_peserta[0]->majelis->token}} </p>
-
-                </div>
+                
+                
               </div>
 
 
@@ -144,13 +125,13 @@
 
   <div id="content">
       <div id="tab1">
-          @include('home.majelis.list_peserta_semua')   
+          @include('public.list_peserta_semua')   
       </div>
       <div id="tab2">
-          @include('home.majelis.list_peserta_putra')   
+          @include('public.list_peserta_putra')   
       </div>
       <div id="tab3">
-          @include('home.majelis.list_peserta_putri')   
+          @include('public.list_peserta_putri')   
       </div>
   </div>
   

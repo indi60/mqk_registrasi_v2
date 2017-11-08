@@ -27,7 +27,7 @@ class OperatorRegistrasiController extends Controller
     }
 
     public function dashboard(){
-
+    	
     	$total_found = -1;
     	$isValidated = false;
 

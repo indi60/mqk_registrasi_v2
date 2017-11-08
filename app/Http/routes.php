@@ -12,8 +12,16 @@
 */
 
 Route::get('/', 'HomeController@index')->name("main");
-Route::get('/home', 'HomeController@index')->name("main");
+// Route::get('/home', 'HomeController@index')->name("main");
 Route::get('/minor', 'HomeController@minor')->name("minor");
+
+//public
+
+Route::get('/leaderboard', 'PublicController@leaderboard');
+Route::get('/medal', 'PublicController@medal');
+Route::get('/majelis', 'PublicController@majelis');
+Route::get('/majelis/list_peserta/{id}','PublicController@list_peserta');
+Route::get('/home', 'PublicController@home');
 
 Route::auth();
 
