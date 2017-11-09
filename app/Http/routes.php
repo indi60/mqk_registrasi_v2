@@ -79,14 +79,14 @@ Route::group(array('prefix' => 'api','middleware' => 'api'), function()
     // login
 
     
-    //table master
-    Route::get('{TOKEN}/majelis/{TOKEN_MAJELIS}','APIController@getMajelis');
-    Route::get('{TOKEN}/peserta','APIController@getPeserta');
-    Route::get('{TOKEN}/majelis_peserta/{TOKEN_MAJELIS}','APIController@getMajelisPeserta');
+    //table master ApiController
+    Route::get('{TOKEN}/majelis/{TOKEN_MAJELIS}','ApiController@getMajelis');
+    Route::get('{TOKEN}/peserta','ApiController@getPeserta');
+    Route::get('{TOKEN}/majelis_peserta/{TOKEN_MAJELIS}','ApiController@getMajelisPeserta');
 
     //post nilai
-    Route::post('{TOKEN}/update_nilai','APIController@updateNilai');
-    Route::post('{TOKEN}/update_nilai_debat','APIController@updateNilaiDebat');
+    Route::post('{TOKEN}/update_nilai','ApiController@updateNilai');
+    Route::post('{TOKEN}/update_nilai_debat','ApiController@updateNilaiDebat');
 
 
 
@@ -95,81 +95,81 @@ Route::group(array('prefix' => 'api','middleware' => 'api'), function()
 
 
 
-    Route::get('{TOKEN}/t_pesantren','APISarprasController@getTPesantren');
+    // Route::get('{TOKEN}/t_pesantren','APISarprasController@getTPesantren');
 
-    Route::get('{TOKEN}/t_sarana/{LAST_UPDATE}','APISarprasController@getTSarana');
-    Route::get('{TOKEN}/t_sarana','APISarprasController@getTSarana');
+    // Route::get('{TOKEN}/t_sarana/{LAST_UPDATE}','APISarprasController@getTSarana');
+    // Route::get('{TOKEN}/t_sarana','APISarprasController@getTSarana');
 
-    Route::get('{TOKEN}/t_prasarana/{LAST_UPDATE}','APISarprasController@getTPrasarana');
-    Route::get('{TOKEN}/t_prasarana','APISarprasController@getTPrasarana');
+    // Route::get('{TOKEN}/t_prasarana/{LAST_UPDATE}','APISarprasController@getTPrasarana');
+    // Route::get('{TOKEN}/t_prasarana','APISarprasController@getTPrasarana');
 
-    Route::get('{TOKEN}/t_pesantren/{LAST_UPDATE}','APISarprasController@getTPesantren');
-    Route::get('{TOKEN}/t_pesantren','APISarprasController@getTPesantren');
+    // Route::get('{TOKEN}/t_pesantren/{LAST_UPDATE}','APISarprasController@getTPesantren');
+    // Route::get('{TOKEN}/t_pesantren','APISarprasController@getTPesantren');
 
-    Route::get('{TOKEN}/t_m_flag_sarana/{LAST_UPDATE}','APISarprasController@getTMFlagSarana');
-    Route::get('{TOKEN}/t_m_flag_sarana','APISarprasController@getTMFlagSarana');
+    // Route::get('{TOKEN}/t_m_flag_sarana/{LAST_UPDATE}','APISarprasController@getTMFlagSarana');
+    // Route::get('{TOKEN}/t_m_flag_sarana','APISarprasController@getTMFlagSarana');
 
-    Route::get('{TOKEN}/t_m_flag_prasarana/{LAST_UPDATE}','APISarprasController@getTMFlagPrasarana');
-    Route::get('{TOKEN}/t_m_flag_prasarana','APISarprasController@getTMFlagPrasarana');
+    // Route::get('{TOKEN}/t_m_flag_prasarana/{LAST_UPDATE}','APISarprasController@getTMFlagPrasarana');
+    // Route::get('{TOKEN}/t_m_flag_prasarana','APISarprasController@getTMFlagPrasarana');
 
-    Route::get('{TOKEN}/t_m_flag_pesantren/{LAST_UPDATE}','APISarprasController@getTMFlagPesantren');
-    Route::get('{TOKEN}/t_m_flag_pesantren','APISarprasController@getTMFlagPesantren');
-
-
-    Route::get('{TOKEN}/t_kabupaten','APISarprasController@getTKabupaten');
-    Route::get('{TOKEN}/t_provinsi','APISarprasController@getTProvinsi');
-
-    Route::get('{TOKEN}/t_jenis_prasarana','APISarprasController@getTJenisPrasarana');
-    Route::get('{TOKEN}/t_jenis_sarana','APISarprasController@getTJenisSarana');
-
-    Route::get('{TOKEN}/t_potensi_ekonomi','APISarprasController@getTPotensiEkonomi');
-
-    // route for kesantrian (anonymous)
-    //Route::get('{TOKEN}/ambil_data/{LAST_UPDATE}','APISarprasController@getSarpras');
-    // lapor lembaga (login user)
-    Route::post('{TOKEN}/lapor_sarana','APISarprasController@laporSarana');
-    Route::post('{TOKEN}/lapor_prasarana','APISarprasController@laporPrasarana');
-    // public flag (anonymous)
-    Route::post('{TOKEN}/flag_sarana','APISarprasController@publicFlagSarana');
-    Route::post('{TOKEN}/flag_prasarana','APISarprasController@publicFlagPrasarana');
-
-    Route::post('{TOKEN}/lapor_pesantren','APISarprasController@laporPesantren');
-    // public flag (anonymous)
-    Route::post('{TOKEN}/flag_pesantren','APISarprasController@publicFlagPesantren');
+    // Route::get('{TOKEN}/t_m_flag_pesantren/{LAST_UPDATE}','APISarprasController@getTMFlagPesantren');
+    // Route::get('{TOKEN}/t_m_flag_pesantren','APISarprasController@getTMFlagPesantren');
 
 
-    //bookmark sarana
-    //set bookmark
-    Route::post('{TOKEN}/set_bookmark_sarana','APISarprasController@setBookmarkSarana');
+    // Route::get('{TOKEN}/t_kabupaten','APISarprasController@getTKabupaten');
+    // Route::get('{TOKEN}/t_provinsi','APISarprasController@getTProvinsi');
 
-    //unset bookmark
-    Route::post('{TOKEN}/un_bookmark_sarana','APISarprasController@unBookmarkSarana');
+    // Route::get('{TOKEN}/t_jenis_prasarana','APISarprasController@getTJenisPrasarana');
+    // Route::get('{TOKEN}/t_jenis_sarana','APISarprasController@getTJenisSarana');
 
-    //list bookmark
-    Route::get('{TOKEN}/ambil_bookmark_sarana/{id_pengguna}/{LAST_UPDATE}','APISarprasController@getBookMarkSarana');
-    Route::get('{TOKEN}/ambil_bookmark_sarana/{id_pengguna}','APISarprasController@getBookMarkSarana');
+    // Route::get('{TOKEN}/t_potensi_ekonomi','APISarprasController@getTPotensiEkonomi');
 
-    //bookmark prasarana
-    //set bookmark
-    Route::post('{TOKEN}/set_bookmark_prasarana','APISarprasController@setBookmarkPrasarana');
+    // // route for kesantrian (anonymous)
+    // //Route::get('{TOKEN}/ambil_data/{LAST_UPDATE}','APISarprasController@getSarpras');
+    // // lapor lembaga (login user)
+    // Route::post('{TOKEN}/lapor_sarana','APISarprasController@laporSarana');
+    // Route::post('{TOKEN}/lapor_prasarana','APISarprasController@laporPrasarana');
+    // // public flag (anonymous)
+    // Route::post('{TOKEN}/flag_sarana','APISarprasController@publicFlagSarana');
+    // Route::post('{TOKEN}/flag_prasarana','APISarprasController@publicFlagPrasarana');
 
-    //unset bookmark
-    Route::post('{TOKEN}/un_bookmark_prasarana','APISarprasController@unBookmarkPrasarana');
-
-    //list bookmark
-    Route::get('{TOKEN}/ambil_bookmark_prasarana/{id_pengguna}/{LAST_UPDATE}','APISarprasController@getBookMarkPrasarana');
-    Route::get('{TOKEN}/ambil_bookmark_prasarana/{id_pengguna}','APISarprasController@getBookMarkPrasarana');
+    // Route::post('{TOKEN}/lapor_pesantren','APISarprasController@laporPesantren');
+    // // public flag (anonymous)
+    // Route::post('{TOKEN}/flag_pesantren','APISarprasController@publicFlagPesantren');
 
 
-    //bookmark pesantren
-    //set bookmark
-    Route::post('{TOKEN}/set_bookmark_pesantren','APISarprasController@setBookmarkPesantren');
+    // //bookmark sarana
+    // //set bookmark
+    // Route::post('{TOKEN}/set_bookmark_sarana','APISarprasController@setBookmarkSarana');
 
-    //unset bookmark
-    Route::post('{TOKEN}/un_bookmark_pesantren','APISarprasController@unBookmarkPesantren');
+    // //unset bookmark
+    // Route::post('{TOKEN}/un_bookmark_sarana','APISarprasController@unBookmarkSarana');
 
-    //list bookmark
-    Route::get('{TOKEN}/ambil_bookmark_pesantren/{id_pengguna}/{LAST_UPDATE}','APISarprasController@getBookMarkPesantren');
-    Route::get('{TOKEN}/ambil_bookmark_pesantren/{id_pengguna}','APISarprasController@getBookMarkPesantren');
+    // //list bookmark
+    // Route::get('{TOKEN}/ambil_bookmark_sarana/{id_pengguna}/{LAST_UPDATE}','APISarprasController@getBookMarkSarana');
+    // Route::get('{TOKEN}/ambil_bookmark_sarana/{id_pengguna}','APISarprasController@getBookMarkSarana');
+
+    // //bookmark prasarana
+    // //set bookmark
+    // Route::post('{TOKEN}/set_bookmark_prasarana','APISarprasController@setBookmarkPrasarana');
+
+    // //unset bookmark
+    // Route::post('{TOKEN}/un_bookmark_prasarana','APISarprasController@unBookmarkPrasarana');
+
+    // //list bookmark
+    // Route::get('{TOKEN}/ambil_bookmark_prasarana/{id_pengguna}/{LAST_UPDATE}','APISarprasController@getBookMarkPrasarana');
+    // Route::get('{TOKEN}/ambil_bookmark_prasarana/{id_pengguna}','APISarprasController@getBookMarkPrasarana');
+
+
+    // //bookmark pesantren
+    // //set bookmark
+    // Route::post('{TOKEN}/set_bookmark_pesantren','APISarprasController@setBookmarkPesantren');
+
+    // //unset bookmark
+    // Route::post('{TOKEN}/un_bookmark_pesantren','APISarprasController@unBookmarkPesantren');
+
+    // //list bookmark
+    // Route::get('{TOKEN}/ambil_bookmark_pesantren/{id_pengguna}/{LAST_UPDATE}','APISarprasController@getBookMarkPesantren');
+    // Route::get('{TOKEN}/ambil_bookmark_pesantren/{id_pengguna}','APISarprasController@getBookMarkPesantren');
 
 });
