@@ -100,10 +100,10 @@
 
               <div class="row" style="padding: 10px;">
                 <div class="col-lg-2" style="padding-bottom: 10px;">
-                  <p style="font-size: 1.2vw;font-weight: bold;"> Bidang Lomba - {{$list_peserta[0]->majelis->bidang_lomba_majelis->bidang_lomba}} </p> 
+                  <p style="font-weight: bold;"> Bidang Lomba - {{$list_peserta[0]->majelis->bidang_lomba_majelis->bidang_lomba}} </p> 
 
-                  <p style="font-size: 1.2vw;font-weight: bold;"> Marhalah - {{$list_peserta[0]->majelis->marhalah_majelis->marhalah}}</p>
-                  <p style="font-size: 1.2vw;font-weight: bold;"> Babak - {{$list_peserta[0]->majelis->babak->nama_babak}} </p>
+                  <p style="font-weight: bold;"> Marhalah - {{$list_peserta[0]->majelis->marhalah_majelis->marhalah}}</p>
+                  <p style="font-weight: bold;"> Babak - {{$list_peserta[0]->majelis->babak->nama_babak}} </p>
                   
                 </div>
                 
