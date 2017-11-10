@@ -51,7 +51,12 @@ class MajelisController extends Controller
 
     public function list_peserta($id)
     {
-        $list_peserta = MajelisPeserta::where('majelis_id', $id)->orderBy('no_urut')->get();
+        $list_peserta = MajelisPeserta::where('majelis_id', $id)
+                ->orderByRaw("jumlah_menang DESC, nilai_total DESC, no_urut ASC")    
+                // ->orderBy('jumlah_menang','desc')
+                // ->orderBy('nilai_total','desc')
+                // ->orderBy('no_urut')
+                ->get();
         //$peserta = array();
 
         //dd($list_peserta);
@@ -116,6 +121,8 @@ class MajelisController extends Controller
 
 
     }
+
+   
 
     /**
      * Show the form for creating a new resource.
