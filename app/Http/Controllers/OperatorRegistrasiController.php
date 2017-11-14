@@ -422,7 +422,7 @@ class OperatorRegistrasiController extends Controller
 
 	        // Generating a random filename
 	        $filename = uniqid();
-	        $filepath = "/photo/$filename.$mimetype";
+	        $filepath = "photo/$filename.$mimetype";
 
 
 
