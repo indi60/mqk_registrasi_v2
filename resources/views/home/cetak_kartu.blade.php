@@ -97,7 +97,7 @@ body {
 				</p>
 				<hr>				
 			</div> -->
-			<div class="photo" id="crop" align="center" style="margin-top: 2.2cm;margin-bottom: 30px">
+			<div class="photo" id="crop" align="center" style="margin-top: 2.2cm;margin-bottom: 15px">
 
 				
 
@@ -108,28 +108,28 @@ body {
 			
 				
 			</div>
-			<p style="font-size: 20px;margin-bottom: 5px;"> {{$peserta->nama_lengkap}} </p>
+			<p style="font-size: 20px;margin-bottom: 3px;"> {{$peserta->nama_lengkap}} </p>
 			@if($peserta->jenis_peserta == 'peserta')
-			<p style="font-size: 16px;margin-bottom: 5px;">{{$peserta->kafilah->nama_kafilah}}</p>
-			<p style="font-size: 16px;margin-bottom: 27px;">{{$peserta->bidang_lomba_peserta->bidang_lomba}} - {{$peserta->marhalah_peserta->marhalah}} </p>
+			<p style="font-size: 15px;margin-bottom: 3px;">{{$peserta->kafilah->nama_kafilah}}</p>
+			<p style="font-size: 15px;margin-bottom: 15px;">{{$peserta->bidang_lomba_peserta->bidang_lomba}} - {{$peserta->marhalah_peserta->marhalah}} </p>
 			@elseif($peserta->jenis_peserta == 'panitera')
-			<p style="font-size: 16px;margin-bottom: 5px;">PANITERA</p>
-			<p style="font-size: 16px;margin-bottom: 27px;">PUSAT </p>
+			<p style="font-size: 15px;margin-bottom: 3px;">PANITERA</p>
+			<p style="font-size: 15px;margin-bottom: 15px;">PUSAT </p>
 			@elseif($peserta->jenis_peserta == 'panitera')
-			<p style="font-size: 16px;margin-bottom: 5px;">DEWAN HAKIM</p>
-			<p style="font-size: 16px;margin-bottom: 27px;">PUSAT </p>
+			<p style="font-size: 15px;margin-bottom: 3px;">DEWAN HAKIM</p>
+			<p style="font-size: 15px;margin-bottom: 15px;">PUSAT </p>
 			@elseif($peserta->jenis_peserta == 'panitia' && $peserta->kafilah_id==0)
-			<p style="font-size: 16px;margin-bottom: 5px;">PANITIA</p>
-			<p style="font-size: 16px;margin-bottom: 27px;">PUSAT </p>
+			<p style="font-size: 15px;margin-bottom: 3px;">PANITIA</p>
+			<p style="font-size: 15px;margin-bottom: 15px;">PUSAT </p>
 			@elseif($peserta->jenis_peserta == 'panitia' && $peserta->kafilah_id!=0)
-			<p style="font-size: 16px;margin-bottom: 5px;">{{$peserta->kafilah->nama_kafilah}}</p>
-			<p style="font-size: 16px;margin-bottom: 27px;">PANITIA / PEMBINA </p>
+			<p style="font-size: 15px;margin-bottom: 3px;">{{$peserta->kafilah->nama_kafilah}}</p>
+			<p style="font-size: 15px;margin-bottom: 15px;">PANITIA / PEMBINA </p>
 			@elseif($peserta->jenis_peserta == 'vip')
-			<p style="font-size: 16px;margin-bottom: 5px;">{{$peserta->kafilah->nama_kafilah}}</p>
-			<p style="font-size: 16px;margin-bottom: 27px;">VIP</p>
+			<p style="font-size: 15px;margin-bottom: 3px;">{{$peserta->kafilah->nama_kafilah}}</p>
+			<p style="font-size: 15px;margin-bottom: 15px;">VIP</p>
 			@elseif($peserta->jenis_peserta == 'lainnya')
-			<p style="font-size: 16px;margin-bottom: 5px;">{{$peserta->kafilah->nama_kafilah}}</p>
-			<p style="font-size: 16px;margin-bottom: 27px;">PESERTA LAIN-LAIN</p>
+			<p style="font-size: 15px;margin-bottom: 3px;">{{$peserta->kafilah->nama_kafilah}}</p>
+			<p style="font-size: 15px;margin-bottom: 15px;">PESERTA LAIN-LAIN</p>
 			@endif
 			
 			<div class="qr-code" style="text-align: center;">
@@ -138,24 +138,24 @@ body {
 			<td align="center">
 
 				@if($peserta->jenis_peserta == 'peserta')
-				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".$peserta->kafilah->nama_kafilah."\n".$peserta->bidang_lomba_peserta->bidang_lomba."\n".$peserta->marhalah_peserta->marhalah, 'QRCODE')}}" alt="barcode" />
+				<img width="75px" height="75px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".$peserta->kafilah->nama_kafilah."\n".$peserta->bidang_lomba_peserta->bidang_lomba."\n".$peserta->marhalah_peserta->marhalah, 'QRCODE')}}" alt="barcode" />
 				@elseif($peserta->jenis_peserta == 'panitera')
-				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PANITERA - PUSAT', 'QRCODE')}}" alt="barcode" />
+				<img width="75px" height="75px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PANITERA - PUSAT', 'QRCODE')}}" alt="barcode" />
 
 				@elseif($peserta->jenis_peserta == 'dewan hakim')
-				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'DEWAN HAKIM - PUSAT', 'QRCODE')}}" alt="barcode" />
+				<img width="75px" height="75px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'DEWAN HAKIM - PUSAT', 'QRCODE')}}" alt="barcode" />
 
 				@elseif($peserta->jenis_peserta == 'panitia' && $peserta->kafilah_id==0)
-				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PANITIA PUSAT', 'QRCODE')}}" alt="barcode" />
+				<img width="75px" height="75px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PANITIA PUSAT', 'QRCODE')}}" alt="barcode" />
 
 				@elseif($peserta->jenis_peserta == 'panitia' && $peserta->kafilah_id!=0)
-				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PANITIA'."\n".$peserta->kafilah->nama_kafilah, 'QRCODE')}}" alt="barcode" />
+				<img width="75px" height="75px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PANITIA'."\n".$peserta->kafilah->nama_kafilah, 'QRCODE')}}" alt="barcode" />
 
 				@elseif($peserta->jenis_peserta == 'vip' )
-				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'VIP'."\n".$peserta->kafilah->nama_kafilah, 'QRCODE')}}" alt="barcode" />
+				<img width="75px" height="75px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'VIP'."\n".$peserta->kafilah->nama_kafilah, 'QRCODE')}}" alt="barcode" />
 
 				@elseif($peserta->jenis_peserta == 'lainnya')
-				<img width="100px" height="100px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PESERTA LAIN-LAIN'."\n".$peserta->kafilah->nama_kafilah, 'QRCODE')}}" alt="barcode" />
+				<img width="75px" height="75px" src="data:image/png;base64,{{DNS2D::getBarcodePNG($peserta->no_peserta."\n".$peserta->nama_lengkap."\n".'PESERTA LAIN-LAIN'."\n".$peserta->kafilah->nama_kafilah, 'QRCODE')}}" alt="barcode" />
 
 
 				@endif
@@ -201,7 +201,7 @@ body {
 
 <script type="text/javascript">
 <!--
-window.print();
+// window.print();
 //-->
 </script>
 

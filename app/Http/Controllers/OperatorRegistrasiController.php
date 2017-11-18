@@ -445,7 +445,7 @@ class OperatorRegistrasiController extends Controller
 	  	$peserta = Peserta::where('no_registrasi', $input['no_registrasi'])->first();
 
 	  	view()->share('peserta',$peserta);
-        $pdf = PDF::loadView('home.cetak_kartu');
+        //$pdf = PDF::loadView('home.cetak_kartu');
 
         //dd(base_path()."/public/images/mqk.png");
         //return $pdf->download('formulirpengajuanbeasiswa.pdf');
