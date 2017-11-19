@@ -552,6 +552,9 @@ border-radius: 0!important;
 
                             @if($peserta->status == 2)  
                             <span class="btn btn-danger"><i class="fa fa-close"></i> Gagal Verifikasi</span>
+                            <span style="color: red;">
+                              Alasan : {{$peserta->alasan}}
+                            </span>
 
                             @elseif($isValidated == false)
                             <form class="" action="{{url('operator_registrasi/verifikasi_peserta')}}" method="post">
